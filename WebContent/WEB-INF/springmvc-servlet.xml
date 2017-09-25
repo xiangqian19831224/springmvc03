@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!-- 配置視圖解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<!-- 前綴 -->
+    	<property name="prefix" value="/"></property>
+    	<!-- 後綴 -->
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    
+    <!-- 方法一： 配置HandlerMapping 根據beanname找到對應的controller -->
+    <!-- 
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerBeanNameHandlerMapping"></bean>
+
+    <bean name="user.do" class="com.liu.controller.UserController"></bean>
+     -->
+     
+     
+     <!-- 方法二： 根据简单URL来查找controller  4.0不好使-->     
+     <!-- 
+     <bean class="org.spring.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+     	<property name="mappings">
+     		<props>
+     			<prop key="/userInfo.do">userController</prop>
+     		</props>
+     	</property>
+     </bean>
+     
+     <bean id="userController" name="/user.do" class="com.liu.controller.UserController"></bean>
+     -->
+     
+     <!-- 方法三： 根据类的类名访问controller 访问时类名首字母需要小写  注意： 只要jsp中开头是user都可以-->
+     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"></bean>
+     <bean  class="com.liu.controller.UserController"></bean>
+      
+</beans>
